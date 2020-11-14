@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "templateForm"
+  "defaultProject": "templateForm",
+  "cli": {
+    "analytics": "d74204c1-8a9a-4428-9fe0-1376084f53a7"
+  }
 }
