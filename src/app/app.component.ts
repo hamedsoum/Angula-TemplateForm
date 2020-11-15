@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Form } from '@angular/forms';
+import { SendDataToServerService } from './send-data-to-server.service';
+import { User } from './user';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'templateForm';
+
+  courses =['Angular', 'React', 'Vue'];
+  courseHasError:boolean = true;
+  submitted = false;
+  /*meg erreur venat du server */
+  errorMsg = '';
+
+  userModel = new User('', 'hamed@gmail.com', '57645875','default', 'morning', true );
+
+  constructor(private sendDataService: SendDataToServerService){}
+  onSubmit(){
+    this.submitted = true;
+    this.sendDataService.sendData(this.userModel)
+    .subscribe(
+      data => console.log('succes!', data),
+      error => this.errorMsg = error.statusText
+    )
+    this.userModel = new User('', '', '','default', 'evening', true);
+  }
+  validateCourse(value:string){
+    if (value === 'default') {
+        this.courseHasError = true;
+    }
+    else{
+      this.courseHasError = false;
+    }
+  }
+  
 }
